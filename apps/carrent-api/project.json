@@ -1,0 +1,57 @@
+{
+  "name": "carrent-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/carrent-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/carrent-api",
+        "main": "apps/carrent-api/src/main.ts",
+        "tsConfig": "apps/carrent-api/tsconfig.app.json",
+        "assets": ["apps/carrent-api/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/carrent-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "carrent-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "carrent-api:build:development"
+        },
+        "production": {
+          "buildTarget": "carrent-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/carrent-api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/carrent-api/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
