@@ -1,5 +1,5 @@
 const express = require('express')
-const {userReisters, resetPassword, userLogin, currentUser} = require('../controllers/usersController')
+const {userReisters, resetPassword, userActivation, userLogin, currentUser, updateUser, DesactivateOrDeleteCompte} = require('../controllers/usersController')
 const validateAccesToken = require('../middleware/validateAccessToken')
 const route = express.Router()
 
@@ -8,8 +8,11 @@ route.get('/', (req, res) => {
 })
 
 route.post('/register', userReisters)
+route.use('/update/:id', validateAccesToken, updateUser)
 route.post('/login', userLogin)
-route.post('resetPassword', validateAccesToken, resetPassword)
+route.delete('/:id', validateAccesToken, DesactivateOrDeleteCompte)
+route.post('/userActivation', validateAccesToken, userActivation)
+route.post('/resetPassword', validateAccesToken, resetPassword)
 route.get('/login/:id', validateAccesToken, currentUser)
 
 

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon  carrent-api"
+    "dev": "nodemon carrent-api"
   },
   "private": true,
   "dependencies": {
